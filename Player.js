@@ -71,7 +71,7 @@ var Player = (function() {
 			player.sprite.body.velocity.x = SPEED;
 			player.sprite.scale.x = 1;
 		} else if(Math.abs(xaxis) > 0.05) {
-			player.sprite.body.velocity.x = xaxis < 0 ? -SPEED : SPEED;
+			player.sprite.body.velocity.x = xaxis * SPEED;
 			player.sprite.scale.x = xaxis > 0 ? 1 : -1;
 		} else
 			player.sprite.body.velocity.x = 0;
