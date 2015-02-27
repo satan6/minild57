@@ -25,15 +25,17 @@ GameState.prototype.preload = function() {
     game.load.image('bullet', 'assets/bullet.png');
     game.load.image('background', 'assets/background.png');
     game.load.image('sawblade', 'assets/sawblade.png');
+    game.load.image('help', 'assets/help.png');
     game.load.spritesheet('player', 'assets/player.png', 20, 28);
     game.load.spritesheet('enemy', 'assets/enemy_spritesheet.png', 32, 32);
     game.load.spritesheet('checkpoint', 'assets/checkpoint.png', 32, 32);
     game.load.spritesheet('qbox', 'assets/qbox.png', 32, 32);
     game.load.image('platform', 'assets/platform.png');
-    game.load.audio('shoot', 'assets/shoot.wav');
-    game.load.audio('hit', 'assets/hit.wav');
+    game.load.audio('shoot', 'assets/shoot2.wav');
+    game.load.audio('hit', 'assets/hit2.wav');
     game.load.audio('jump', 'assets/jump.wav');
-    game.load.audio('pickup', 'assets/pickup.wav');
+    game.load.audio('pickup', 'assets/pickup2.wav');
+    game.load.audio('save', 'assets/pickup.wav');
 
     game.load.script('blurx', 'filters/BlurX.js');
     game.load.script('game', 'filters/Game.js');
@@ -94,6 +96,7 @@ GameState.prototype.create = function() {
     sounds.jump = game.add.audio('jump');
     sounds.pickup = game.add.audio('pickup');
     sounds.hit = game.add.audio('hit');
+    sounds.save = game.add.audio('save');
 
 
     // Level
@@ -109,19 +112,19 @@ GameState.prototype.create = function() {
 
     // Stuff
 
-    game.time.advancedTiming = true;
+    /*game.time.advancedTiming = true;
     fpsText = game.add.text(
         20, 20, '', { font: '16px Arial', fill: '#ffffff' }
     );
-    fpsText.fixedToCamera = true;
+    fpsText.fixedToCamera = true;*/
 
     this.setupPause();
 };
 
 GameState.prototype.update = function() {
-    if(game.time.fps !== 0) {
+    /*if(game.time.fps !== 0) {
         fpsText.setText(game.time.fps + ' FPS');
-    }
+    }*/
 
     background.tilePosition.x = -game.camera.position.x * 0.1;
 
@@ -157,6 +160,7 @@ GameState.prototype.update = function() {
     game.physics.arcade.collide(bullets, player.sprite, function(player, bullet) {
         bullet.destroy();
         sounds.shoot.play();
+        player.ent.unshoot();
     });
 
     game.physics.arcade.collide(bullets, enemies, function(bullet, enemy) {
@@ -214,15 +218,16 @@ GameState.prototype.setupPause = function() {
     this.pauseOverlay.fixedToCamera = true;
     this.pauseOverlay.alpha = 0.8;
     var pauseText = game.make.text(
-        game.width/2, game.height/2, 'Paused', { font: '30px Arial', fill: '#ffffff' }
+        450, game.height/2, 'Paused', { font: '30px Arial', fill: '#ffffff' }
     );
     pauseText.anchor.set(0.5, 0.5);
     var resumeText = game.make.text(
-        game.width/2, game.height/2 + 100, 'Press SPACE to continue.', { font: '14px Arial', fill: '#ffffff' }
+        450, game.height/2 + 100, 'Press SPACE to continue.', { font: '14px Arial', fill: '#ffffff' }
     );
     resumeText.anchor.set(0.5, 0);
     this.pauseOverlay.addChild(pauseText);
     this.pauseOverlay.addChild(resumeText);
+    this.pauseOverlay.addChild(game.make.sprite(700, 200, "help"));
 };
 
 GameState.prototype.pauseGame = function() {

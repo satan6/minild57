@@ -15,7 +15,7 @@ var Checkpoint = (function() {
 	Checkpoint.prototype.update = function() {};
 
 	Checkpoint.prototype.check = function() {
-		sounds.pickup.play();
+		sounds.save.play();
 		this.sprite.frame = 1;
 	};
 

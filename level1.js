@@ -39,10 +39,10 @@ function setupLevel1() {
 		new vec2(53 * TW, 11 * TW),
 		new vec2(67 * TW, 11 * TW),
 	]);
-	new Enemy(35 * TW, 15 * TW, [
+	/*new Enemy(35 * TW, 15 * TW, [
 		new vec2(24 * TW, 15 * TW),
 		new vec2(37 * TW, 15 * TW),
-	]);
+	]);*/
 	new Enemy(26 * TW, 15 * TW, [
 		new vec2(24 * TW, 15 * TW),
 		new vec2(37 * TW, 15 * TW),
@@ -134,7 +134,7 @@ function setupLevel1() {
 		new vec2(15 * TW, 13 * TW),
 	], new vec2(-16, -16));
 
-	new Trap(115 * TW, 17 * TW, 122 * TW, 17 * TW);
+	new Trap(115 * TW, 17 * TW, 123 * TW, 17 * TW);
 	new Trap(97 * TW, 17 * TW, 111 * TW, 17 * TW);
 	new Trap(77 * TW, 21 * TW, 93 * TW, 21 * TW);
 	new Trap(1 * TW, 21 * TW, 20 * TW, 21 * TW);
@@ -152,7 +152,7 @@ function setupLevel1() {
 	new QBox(65 * TW, 4 * TW);
 	new QBox(24 * TW, 17 * TW);
 	new QBox(30 * TW, 13 * TW);
-	new QBox(25 * TW, 9 * TW);
+	//new QBox(25 * TW, 9 * TW);
 	new QBox(28 * TW, 8 * TW);
 	new QBox(5 * TW, 16 * TW);
 	new QBox(5 * TW, 7 * TW);

@@ -5,7 +5,7 @@ var LoadingScreen = (function() {
     LoadingScreen.prototype.preload = function() {};
 
     LoadingScreen.prototype.create = function() {
-        this.progress = game.add.text(game.width/2, game.width/2, '100%', { font: '50px Arial', fill: '#ffffff' });
+        this.progress = game.add.text(game.width/2, game.height/2, '100%', { font: '50px Arial', fill: '#ffffff' });
         this.progress.anchor.set(0.5, 0.5);
         this.progress.visible = false;
 

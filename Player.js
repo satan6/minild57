@@ -13,8 +13,9 @@ var Player = (function() {
 		this.sprite.body.collideWorldBounds = true;
 		this.sprite.body.mass = 100;
 
-		this.sprite.animations.add('walk', [0, 1, 2, 1], 6);
-		this.sprite.animations.play('walk', 6, true);
+		this.isRunning = false;
+		this.sprite.animations.add('walk', [0, 1, 2, 3, 2, 1], 12);
+		this.sprite.animations.add('shoot', [5, 5], 10);
 
 		this.pad = game.input.gamepad.pad1;
 
@@ -34,6 +35,7 @@ var Player = (function() {
 		while(true) {
 			if(game.physics.arcade.overlap(bullet, enemies, function(bullet, enemy) {
 				enemy.ent.revive();
+				//sounds.hit.play();
 			}, function(bullet, enemy) {
 				return !enemy.ent.isAlive;
 			})) {
@@ -60,6 +62,10 @@ var Player = (function() {
 		bullet.body.velocity.x = -350 * this.sprite.scale.x;
 	};
 
+	Player.prototype.unshoot = function() {
+		this.sprite.animations.play("shoot");
+	};
+
 	Player.prototype.update = function() {
 		var xaxis = this.pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X);
 		var yaxis = this.pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_Y);
@@ -75,6 +81,27 @@ var Player = (function() {
 			player.sprite.scale.x = xaxis > 0 ? 1 : -1;
 		} else
 			player.sprite.body.velocity.x = 0;
+
+		if(this.sprite.animations.currentAnim && this.sprite.animations.currentAnim.name == "shoot" && !this.sprite.animations.currentAnim.isFinished) {
+
+		} else if(!this.sprite.body.onFloor() && !this.sprite.body.touching.down) {
+			if(this.isRunning) {
+				this.isRunning = false;
+				this.sprite.animations.stop();
+			}
+			this.sprite.frame = 4;
+		} else if(player.sprite.body.velocity.x) {
+			if(!this.isRunning) {
+				this.sprite.animations.play("walk", 12, true);
+				this.isRunning = true;
+			}
+		} else {
+			if(this.isRunning) {
+				this.isRunning = false;
+				this.sprite.animations.stop();
+			}
+			this.sprite.frame = 1;
+		}
 
 		if(this.sprite.body.touching.down && this.sprite.body.velocity.y < 0) // Kill y speed when on platform
 			this.sprite.body.velocity.y = 0;

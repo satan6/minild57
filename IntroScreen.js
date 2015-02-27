@@ -49,9 +49,6 @@ var IntroScreen = (function() {
                                     this.text.text = "Finally i am returning home to my one true love!";
                                     break;
                                 case 1:
-                                    this.text.text = "But why is time still reversed? Goddammit Satan!";
-                                    break;
-                                case 2:
                                     this.text.text = "";
                                     this.text.position.x = 700;
                                     this.allowInput = false;
